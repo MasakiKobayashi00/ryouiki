@@ -1,6 +1,7 @@
 from ultralytics import YOLO
 import cv2
 import torch
+import numpy as np
 
 video_path = "ex3a.mp4"
 
@@ -35,6 +36,8 @@ while cap.isOpened():
         # 読み出しに成功すれば以下を実行する
         results = model(frame)
 
+        h,w,_ = frame.shape#shapeの属性は（高さ、幅、チャネル数）
+        back = np.full((h, w, 3), (128, 128, 128), dtype=np.uint8)
 
         nodes = results[0].keypoints.xy[0]
 
@@ -43,7 +46,7 @@ while cap.isOpened():
             if nodes[n1][0] * nodes[n1][1] * nodes[n2][0] * nodes[n2][1] == 0:
                 continue
             cv2.line(
-                frame,
+                back,
                 # 2つの座標を整数化し，テンソルからリストにする．
                 nodes[n1].to(torch.int).tolist(),
                 nodes[n2].to(torch.int).tolist(),
@@ -52,9 +55,9 @@ while cap.isOpened():
             )
 
         for i in range(5,nodes.size(0)):#5から始める
-            cv2.circle(frame,(int(nodes[i][0]),int(nodes[i][1])),5,(0,255,255),-1)
+            cv2.circle(back,(int(nodes[i][0]),int(nodes[i][1])),5,(0,255,255),-1)
 
-        cv2.imshow("", frame)
+        cv2.imshow("", back)
 
         if cv2.waitKey(20) == 27:
             break

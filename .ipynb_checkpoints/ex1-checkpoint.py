@@ -6,7 +6,7 @@ import torch
 model = YOLO("yolo11x-pose.pt")
 
 results = model("ex1.jpg")
-s
+
 keypoints = results[0].keypoints
 print(keypoints.data)
 
@@ -57,4 +57,3 @@ cv2.drawMarker
 cv2.waitKey(0)
 # フレームを閉じる．
 cv2.destroyAllWindows()
-
