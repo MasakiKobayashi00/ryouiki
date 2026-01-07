@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-pts1 = np.array([(699, 148),(1082, 122),(1216, 176),(1157, 424)], dtype=np.float32)
-pts2 = np.array([(2708, 594), (3143, 594),(3143, 858),(2721, 1625)], dtype=np.float32)
+pts1 = np.array([(959, 67),(693, 140),(1088, 114),(1157, 424)], dtype=np.float32)
+pts2 = np.array([(3140, 227), (2723, 575),(3143, 575),(2721, 1625)], dtype=np.float32)
 
 M = cv2.getPerspectiveTransform(pts1, pts2)
 np.set_printoptions(precision=5, suppress=True)
